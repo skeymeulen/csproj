@@ -1,0 +1,158 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<UseMaui>true</UseMaui>
+		<TargetFramework>net10.0</TargetFramework>
+		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+		<Configurations>Debug;Release</Configurations>
+		<ProduceReferenceAssemblyInOutDir>true</ProduceReferenceAssemblyInOutDir>
+		<Platforms>AnyCPU</Platforms>
+		<TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<WarningsAsErrors>CS4014;</WarningsAsErrors>
+	</PropertyGroup>
+
+	<!-- The unit test project references this project directly, so it needs to see the internal
+	     types it exercises - EmbeddedSocFwImages -->
+	<ItemGroup>
+		<InternalsVisibleTo Include="redacted" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Remove="ViewModels\Upload\**" />
+		<Compile Remove="Views\Settings\**" />
+		<EmbeddedResource Remove="ViewModels\Upload\**" />
+		<EmbeddedResource Remove="Views\Settings\**" />
+		<None Remove="ViewModels\Upload\**" />
+		<None Remove="Views\Settings\**" />
+		<None Remove="Repos\Extensions\" />
+		<None Remove="Models\WebRtc\Extension\" />
+		<None Remove="PulseNMore.RBITools.RBIWrite" />
+		<Compile Update="Views\StatusItemView.xaml.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<None Remove="Views\Controls\" />
+		<None Remove="Xamarin.Forms.CircularProgressBar" />
+		<None Remove="Views\DeviceSetup\" />
+		<None Remove="ViewModels\DeviceSetup\" />
+		<None Remove="Models\DeviceSetup\" />
+		<Compile Remove="Services\FirmwareUpdateService.cs" />
+		<None Remove="Resources\FirmwareImages\158.tar" />
+		<EmbeddedResource Include="Resources\FirmwareImages\158.tar" />
+		<None Remove="Repos\AppProperties\PropertyRepos\AppArtifacts\" />
+		<None Remove="Models\Exceptions\FirmwareUpdate\" />
+		<None Remove="Models\FirmwareUpdate\" />
+		<Compile Update="Views\DeviceSetup\ConfirmWirelessSetupView.xaml.cs">
+			<DependentUpon>ConfirmWirelessSetupView.xaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\DevTools\FirmwareUpdateView.xaml.cs">
+			<DependentUpon>FirmwareUpdateView.xaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\Welcome\ScanPreparation\AppGuidedPopupContentView.xaml.cs">
+			<DependentUpon>AppGuidedPopupContentView.xaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\Welcome\ScanPreparation\ClinicianGuidedPopupContentView.xaml.cs">
+			<DependentUpon>ClinicianGuidedPopupContentView.xaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\Welcome\ScanPreparation\ScanPreparationPopupView.xaml.cs">
+			<DependentUpon>ScanPreparationPopupPage.xaml</DependentUpon>
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="Views\Procedure\ScanIndicatorView.xaml.cs">
+		  <DependentUpon>ScanIndicatorView.xaml</DependentUpon>
+		  <SubType>Code</SubType>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\PresetConfig.json" />
+		<MauiImage Include="Resources\Images\*.png" />
+		<MauiImage Include="Resources\Images\*.gif" />
+		<MauiImage Include="Resources\Images\*.svg" />
+		<MauiFont Include="Resources\Fonts\*" />
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		<MauiSplashScreen Include="Resources\Splash\pulsenmore.svg" Color="#FFFFFF" BaseSize="128, 128" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Azure.Core" Version="1.60.0" />
+		<PackageReference Include="Azure.Storage.Blobs" Version="12.29.1" />
+		<PackageReference Include="BarcodeScanning.Native.Maui" Version="3.0.6" />
+		<PackageReference Include="CommunityToolkit.Maui" Version="14.2.2" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="10.0.10" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.80" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.80" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.10" />
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.302">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Mopups" Version="1.3.2" />
+		<PackageReference Include="NewRelic.MAUI.Plugin" Version="1.2.5" />
+		<PackageReference Include="OnScreenSizeMarkup.Maui" Version="4.1.0" />
+		<PackageReference Include="PulseNMore.Server.Sdk" Version="26.4.0" />
+		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="3.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\PulseNMore.Infrastructures\SharedResources\SharedResources.csproj" />
+		<ProjectReference Include="..\PulseNMore.MobileSdk.Device\PulseNMore.MobileSdk.Device.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Resources\Keys.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Keys.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Themes\DarkTheme.xaml.cs">
+			<DependentUpon>DarkTheme.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Keys.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Keys.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Repos\Extensions\" />
+		<Folder Include="Models\DeviceSetup\" />
+		<Folder Include="Models\Exceptions\FirmwareUpdate\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Views\Welcome\ScanPreparation\AppGuidedPopupContentView.xaml">
+			<SubType>Designer</SubType>
+		</MauiXaml>
+		<MauiXaml Update="Views\Welcome\ScanPreparation\ClinicianGuidedPopupContentView.xaml">
+			<SubType>Designer</SubType>
+		</MauiXaml>
+		<MauiXaml Update="Views\Welcome\ScanPreparation\ScanPreparationPopupView.xaml">
+			<SubType>Designer</SubType>
+		</MauiXaml>
+		<MauiXaml Update="Views\Procedure\ScanIndicatorView.xaml">
+		  <SubType>Designer</SubType>
+		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="Views\Welcome\ScanPreparation\AppGuidedPopupContentView.xaml" />
+		<AdditionalFiles Include="Views\Welcome\ScanPreparation\ClinicianGuidedPopupContentView.xaml" />
+		<AdditionalFiles Include="Views\Welcome\ScanPreparation\ScanPreparationPopupView.xaml" />
+	</ItemGroup>
+</Project>
